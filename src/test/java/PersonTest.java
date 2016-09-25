@@ -2,6 +2,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 import org.sql2o.*;
 
 public class PersonTest{
@@ -68,5 +69,17 @@ public class PersonTest{
     Person testPerson2 = new Person("Harriet", "harriet@harriet.com");
     testPerson2.save();
     assertEquals(Person.find(testPerson2.getId()), testPerson2);
+  }
+
+  @Test
+  public void getMonsters_retrievesAllMonstersFromDatabase_monstersList() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    Monster firstMonster = new Monster("Bubbles", testPerson.getId());
+    firstMonster.save();
+    Monster secondMonster = new Monster("Spud", testPerson.getId());
+    secondMonster.save();
+    Monster[] monsters = new Monster[] { firstMonster, secondMonster };
+    assertTrue(testPerson.getMonsters().containsAll(Arrays.asList(monsters)));
   }
 }
