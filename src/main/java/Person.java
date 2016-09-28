@@ -84,4 +84,36 @@ public class Person {
      return allMonsters;
   }
 
+  public List<Community> getCommunities() {
+    try(Connection con = DB.sql2o.open()){
+      String joinQuery = "SELECT communities.* FROM communities " +
+      "JOIN communities_persons ON (communities.id = communities_persons.community_id) " +
+      "JOIN persons ON (communities_persons.person_id = persons.id) "+
+      "WHERE persons.id = :id";
+      List<Community> communities = con.createQuery(joinQuery)
+        .addParameter("id", this.getId())
+        .executeAndFetch(Community.class);
+      //
+      // List<Community> communities = new ArrayList<Community>();
+      //
+      // for (Integer communityId : communityIds) {
+      //   String communityQuery = "SELECT * FROM communities WHERE id = :communityId";
+      //   Community community = con.createQuery(communityQuery)
+      //     .addParameter("communityId", communityId)
+      //     .executeAndFetchFirst(Community.class);
+      //   communities.add(community);
+      // }
+      return communities;
+    }
+  }
+
+  public void leaveCommunity(Community community){
+    try(Connection con = DB.sql2o.open()){
+      String joinRemovalQuery = "DELETE FROM communities_persons WHERE community_id = :communityId AND person_id = :personId;";
+      con.createQuery(joinRemovalQuery)
+        .addParameter("communityId", community.getId())
+        .addParameter("personId", this.getId())
+        .executeUpdate();
+    }
+  }
 }
