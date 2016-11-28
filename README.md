@@ -1,10 +1,10 @@
-# _Template_
+# _Virtual Pets App_
 
 #### By _Ewa Manek_
 
 ## Description
 
-_A template java app with support for gradle, postgresql, spark and junit testing_
+_An app for caring for virtual pets - Epicodus java and postgres tutorial with support for gradle, postgresql, spark and junit testing_
 
 ## Setup/Installation Requirements
 
@@ -17,7 +17,7 @@ _A template java app with support for gradle, postgresql, spark and junit testin
 
 ## GitHub link
 
-https://github.com/ewajm/javaSparkPostgres
+https://github.com/ewajm/virtual-pets
 
 ## Licensing
 
